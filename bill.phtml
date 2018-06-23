@@ -1,0 +1,61 @@
+<?php
+session_start();
+?>
+<html>
+<body>
+
+<p><br>Want to add or remove some items? Go back to main menu.</br></p>
+<form action="index.html">
+	<input type="submit" value="Back to main menu">
+</form>
+
+<?php 
+$cost[] = array();
+$cost[1] = array('name' => "White Shirt", 'price' => 5);
+$cost[2] = array('name' => "Blue Shirt", 'price' => 10);
+$cost[3] = array('name' => "Green Shirt", 'price' => 15);
+$cost[4] = array('name' => "Red Shirt", 'price' => 20);
+$cost[5] = array('name' => "Cream Shirt", 'price' => 25);
+
+$_SESSION["product_id"] = $_POST["product_id"];
+$_SESSION["cost"] = $cost;
+if(isset($_POST["submit"]))
+{
+	
+	
+	if(!empty($_POST["product_id"]))
+	{
+		$bill = 0;
+		echo '<br><br><h>You selected the below items:<h><br><br><br>';
+		foreach($_POST["product_id"] as $id)
+		{
+			echo '<br>'.$cost[$id]['name'] . " costs " . $cost[$id]['price'].'</br>';
+			$bill = $bill + $cost[$id]['price'];
+		}
+		echo '----------------------------';
+		echo '<br>'."The total bill costs ".$bill.'</br>';
+		echo '----------------------------';
+	}
+	else
+	{
+		echo 'Please select atleast one item';
+	}
+}
+?>
+<p><br>Done with shopping?</br></p>
+<form action="buy.phtml">
+	<input type="submit" value="Buy">
+</form>
+
+<p><br>Add selected items to cart?</br></p>
+<form action="add.phtml" method="post">
+	<input type="submit" name="add" value="Add to cart">
+</form>
+
+<p><br>View items previously added to cart?</br></p>
+<form action="view.phtml" target="_blank">
+	<input type="submit" value="View cart">
+</form>
+
+</body>
+</html>
