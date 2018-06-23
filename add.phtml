@@ -1,0 +1,31 @@
+<html>
+<body>
+
+<h><br>Selected items are added to cart.</br></h>
+<?php
+session_start();
+?>
+
+<?php
+$file = fopen("cart.txt", "w") or die("Unable to open file! Check the file permissions!");
+foreach($_SESSION["product_id"] as $id)
+		{
+			fwrite($file, $_SESSION["cost"][$id]['name'].PHP_EOL);
+		}
+
+fclose($file);
+?>
+<p><br><br>View items added to cart?</br></p>
+<form action="view.phtml" target="_blank">
+	<input type="submit" value="View cart">
+</form>
+
+<p><br>Want to add or remove some items? Go back to main menu.</br></p>
+<form action="index.html">
+	<input type="submit" value="Back to main menu">
+</form>
+
+
+</body>
+</html>
+
